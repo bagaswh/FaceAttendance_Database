@@ -1,0 +1,41 @@
+.dropdown {
+  margin-bottom: 10px;
+}
+
+.time-container {}
+
+.status {
+  border: 1px solid #ddd;
+  color: #fff;
+}
+
+.hadir {
+  background-color: green;
+}
+
+.tidakhadir {
+  background-color: red;
+}
+
+.keterlambatan {
+  background-color: orange;
+}
+
+@keyframes highlight-fade-out {
+  from {
+    border: 3px solid red;
+  }
+
+  to {
+    border: 0 solid red;
+  }
+}
+
+
+.highlight {
+  animation-name: highlight-fade-out;
+  animation-fill-mode: both;
+  animation-timing-function: ease-in-out;
+  animation-direction: alternate;
+  animation-duration: 1s;
+}

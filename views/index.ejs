@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Attendance data</title>
+  <link rel="stylesheet" href="/stylesheets/style.css" />
+  <link rel="stylesheet" href="/stylesheets/index.css" />
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+</head>
+
+<body>
+  <div class="container-fluid">
+    <div class="time-container"><%= serverTime %></div>
+    <div class="row">
+      <div class="list-group col-3" id="date-list" role="tablist">
+        <% dates.forEach( date => { %>
+        <a class="list-group-item list-group-item-action" data-toggle="list" href="#<%= date %>"
+          role="tab"><%= date.split('_').map((word, index) => word[0].toUpperCase() + word.slice(1)).join(' ') %></a>
+        <% }) %>
+      </div>
+
+      <div class="table-container table-responsive tab-content col-9">
+        <table class="tab-pane table active table-striped table-bordered" id="<%=  %>" role="tabpanel">
+          <caption>List of users</caption>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nama</th>
+              <th>Status</th>
+              <th>Waktu Hadir</th>
+            </tr>
+          </thead>
+          <% data.forEach( datum => { %>
+          <tr>
+            <td><%= datum.id %></td>
+            <td><%= datum.fullname %></td>
+            <td>
+              <% if (datum.attended) { %>
+              <span class="status hadir">HADIR</span>
+              <% } else { %>
+              <span class="status tidakhadir"> BELUM/TIDAK HADIR</span>
+              <% } %>
+
+              <span class="status keterlambatan">
+                <%= datum.attending_time ? new Date(datum.attending_time).getHours() >=7 ? 'TERLAMBAT' : '' : '' %>
+              </span>
+            </td>
+            <td><%= datum.attending_time ? new Date(datum.attending_time).toLocaleTimeString() : 'N/A' %></td>
+          </tr>
+          <% }) %>
+        </table>
+
+        <!-- <div class="video-container">
+        <video id="camera" autoplay></video>
+      </div>
+
+      <canvas id="grabbed-frame" hidden></canvas>
+      <canvas id="cv-output"></canvas> -->
+      </div>
+    </div>
+  </div>
+</body>
+<!-- <script src="/javascripts/vendors/opencv.js"></script> -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+  integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+  integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+  integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+<script src="/javascripts/vendors/socket.io.js"></script>
+<script src="/javascripts/index.js"></script>
+<script src="/javascripts/camera.js"></script>
+
+</html>
