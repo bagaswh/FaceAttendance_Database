@@ -8,9 +8,4 @@ const ReqIntents = {
   INTENT_REQ_UPDATE_ATTENDING_DATA: 0x10
 };
 
-const Addresses = {
-  REP_BIND_ADDRESS: 'tcp://*:5556',
-  REQ_CONNECT_ADDRESS: 'tcp://localhost:5555'
-};
-
-module.exports = { ReqIntents, Addresses };
+module.exports = { ReqIntents };
